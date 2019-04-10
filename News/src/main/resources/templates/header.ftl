@@ -2,7 +2,7 @@
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>吃货头条 - 王道码农训练营</title>
+    <title>IT-NEWS</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
 
@@ -37,8 +37,8 @@
             </button>
 
             <a href="${springMacroRequestContext.contextPath}" class="navbar-brand logo">
-                <h1>美食资讯</h1>
-                <h3>有好吃的才是王道</h3>
+                <h1>IT资讯</h1>
+                <h3>抢先一步才是王道</h3>
             </a>
         </div>
 
@@ -54,7 +54,8 @@
                 <li class=""><a href="${springMacroRequestContext.contextPath}/user/${user.id!}/">${user.name!}</a></li>
                 <li class=""><a href="${springMacroRequestContext.contextPath}/logout/">注销</a></li>
                 <#else>
-                <li class="js-login"><a href="javascript:void(0);">登陆</a></li>
+                <li class="js-login"><a href="javascript:void(0);">登录</a></li>
+
                 </#if>
             </ul>
 

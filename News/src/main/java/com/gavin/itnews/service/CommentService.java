@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface CommentService {
     List<Comment> findCommentsByNewsId(String newsId);
+
+    boolean addComment(Integer userId, String newsId, String content);
 }

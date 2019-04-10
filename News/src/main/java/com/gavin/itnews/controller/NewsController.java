@@ -52,6 +52,7 @@ public class NewsController {
             User user = userService.findUserByUserId(userId);
             vo.set("comment",comment);
             vo.set("user",user);
+            commentsVo.add(vo);
         }
         return commentsVo;
     }

@@ -24,4 +24,9 @@ public class CommentServiceImpl implements CommentService {
         }
         return comments;
     }
+
+    @Override
+    public boolean addComment(Integer userId, String newsId, String content) {
+        return false;
+    }
 }
