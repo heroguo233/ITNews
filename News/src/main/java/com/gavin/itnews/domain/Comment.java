@@ -7,9 +7,9 @@ public class Comment {
 
     private Integer userId;
 
-    private Integer entityId;
+    private Integer newsId;
 
-    private Integer entityType;
+    private Integer newsType;
 
     private Date createdDate;
 
@@ -20,11 +20,11 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Integer id, Integer userId, Integer entityId, Integer entityType, Date createdDate, Integer status, String content) {
+    public Comment(Integer id, Integer userId, Integer newsId, Integer newsType, Date createdDate, Integer status, String content) {
         this.id = id;
         this.userId = userId;
-        this.entityId = entityId;
-        this.entityType = entityType;
+        this.newsId = newsId;
+        this.newsType = newsType;
         this.createdDate = createdDate;
         this.status = status;
         this.content = content;
@@ -46,20 +46,20 @@ public class Comment {
         this.userId = userId;
     }
 
-    public Integer getEntityId() {
-        return entityId;
+    public Integer getNewsId() {
+        return newsId;
     }
 
-    public void setEntityId(Integer entityId) {
-        this.entityId = entityId;
+    public void setNewsId(Integer newsId) {
+        this.newsId = newsId;
     }
 
-    public Integer getEntityType() {
-        return entityType;
+    public Integer getNewsType() {
+        return newsType;
     }
 
-    public void setEntityType(Integer entityType) {
-        this.entityType = entityType;
+    public void setNewsType(Integer newsType) {
+        this.newsType = newsType;
     }
 
     public Date getCreatedDate() {
@@ -83,6 +83,19 @@ public class Comment {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", newsId=" + newsId +
+                ", newsType=" + newsType +
+                ", createdDate=" + createdDate +
+                ", status=" + status +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

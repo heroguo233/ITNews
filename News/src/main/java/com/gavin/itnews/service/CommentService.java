@@ -1,6 +1,7 @@
 package com.gavin.itnews.service;
 
 import com.gavin.itnews.domain.Comment;
+import com.gavin.itnews.domain.ViewObject;
 
 import java.util.List;
 
@@ -11,5 +12,7 @@ import java.util.List;
 public interface CommentService {
     List<Comment> findCommentsByNewsId(String newsId);
 
-    boolean addComment(Integer userId, String newsId, String content);
+    boolean addComment(Comment comment);
+
+    List<ViewObject> getCommentsVo(String index);
 }

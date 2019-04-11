@@ -1,10 +1,10 @@
 <footer>
     <div class="container">
         <p class="text-center">
-            <a href="http://cskaoyan.com/about">关于我们</a>
-            <a href="http://cskaoyan.com/download">美食资讯客户端</a>
+            <a href="http://google.com">关于我们</a>
+            <a href="http://google.com">IT资讯客户端</a>
         </p>
-        <p class="text-center">© 2013-2016 美食八卦</p>
+        <p class="text-center">© 2018-2019 IT-资讯</p>
     </div>
 
 </footer>
@@ -12,9 +12,9 @@
 <div id="quick-download">
     <button type="button" class="close-link btn-link" data-toggle="modal" data-target="#quick-download-app-modal"><i class="fa icon-times-circle"></i></button>
 
-    <a class="download-link" href="http://cskaoyan.com/download">
-        <h3>王道吃货网</h3>
-        <h4>程序员的首选美食分享平台</h4>
+    <a class="download-link" href="http://www.google.com">
+        <h3>IT资讯网</h3>
+        <h4>程序员的首选分享平台</h4>
         <button type="button" class="btn btn-info btn-sm">下载 APP</button>
     </a>
 

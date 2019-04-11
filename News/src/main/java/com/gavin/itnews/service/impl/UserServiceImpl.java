@@ -3,6 +3,7 @@ package com.gavin.itnews.service.impl;
 import com.gavin.itnews.domain.User;
 import com.gavin.itnews.mapper.UserMapper;
 import com.gavin.itnews.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,8 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    User user = new User(1,"test","test","test","http://images.nowcoder.com/head/328t.png");
-
+    @Autowired
     UserMapper userMapper;
 
     /**
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int login(String username, String password) {
-        boolean flag = userMapper.usernameIsExist(username);
+        boolean flag = userMapper.usernameIsExist(username)==1;
         if(flag){
             User user = userMapper.findUserByUsernameAndPassword(username, password);
             if(user!=null){
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int register(String username, String password) {
-        boolean flag = userMapper.usernameIsExist(username);
+        boolean flag = userMapper.usernameIsExist(username)==1;
         if(flag){
             return 1;
         }else {
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUserId(Integer userId) {
-
+        User user = userMapper.selectUserByUserId(userId);
         return user;
     }
 

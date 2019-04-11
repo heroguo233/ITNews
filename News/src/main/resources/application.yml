@@ -1,6 +1,5 @@
 spring:
   freemarker:
-
     template-loader-path: classpath:/templates/
     cache: false
     charset: UTF-8
@@ -9,7 +8,12 @@ spring:
     expose-request-attributes: true
     expose-session-attributes: true
     request-context-attribute: request
-
+  datasource:
+    url: jdbc:mysql://localhost:3306/news?serverTimezone=GMT&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
 server:
   servlet:
     context-path: /

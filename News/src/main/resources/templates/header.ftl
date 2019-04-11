@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a href="${springMacroRequestContext.contextPath}" class="navbar-brand logo">
+            <a href="${springMacroRequestContext.contextPath}/home" class="navbar-brand logo">
                 <h1>IT资讯</h1>
                 <h3>抢先一步才是王道</h3>
             </a>

@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,20 +30,20 @@ public class NewsController {
     UserService userService;
     @Autowired
     CommentService commentService;
+
+
     @RequestMapping("/news/{index}")
-    public String detail(Model model, @PathVariable String index){
+    public String detail(Model model, @PathVariable String index) {
         News news = newsService.showNewsByIndex(index);
         Integer userId = news.getUserId();
         User owner = userService.findUserByUserId(userId);
-//        ViewObject vo = new ViewObject();
-//        vo.set("news",news);
-//        vo.set("owner",owner);
-        model.addAttribute("news",news);
-        model.addAttribute("owner",owner);
-       List<ViewObject> commentsVos= getCommentsVo( index);
-       model.addAttribute("comments",commentsVos);
+        List<ViewObject> commentsVos = commentService.getCommentsVo(index);
+        model.addAttribute("news", news);
+        model.addAttribute("owner", owner);
+        model.addAttribute("comments", commentsVos);
         return "detail";
     }
+
 
     private List<ViewObject> getCommentsVo(String index) {
         List<ViewObject> commentsVo = new ArrayList<>();
@@ -50,10 +52,12 @@ public class NewsController {
             ViewObject vo = new ViewObject();
             Integer userId = comment.getUserId();
             User user = userService.findUserByUserId(userId);
-            vo.set("comment",comment);
-            vo.set("user",user);
+            vo.set("comment", comment);
+            vo.set("user", user);
             commentsVo.add(vo);
         }
         return commentsVo;
     }
+
+
 }
