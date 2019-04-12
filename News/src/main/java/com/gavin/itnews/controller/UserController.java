@@ -76,7 +76,7 @@ public class UserController {
 
             case 2:
                 map.put("code",1);
-                map.put("msgpsw","密码不正确");
+                map.put("msgpwd","密码不正确");
                 break;
         }
         return map;
@@ -112,6 +112,16 @@ public class UserController {
         User user = userService.findUserByUserId(Integer.valueOf(userId));
         model.addAttribute("user",user);
         return "personal";
+    }
+    @RequestMapping("/user/tosendmsg")
+    public String toSendMsgPage(){
+        return "sendmsg";
+    }
+    @RequestMapping("/user/msg/addMessage")
+    public String addMessage(String toName,String content){
+        System.out.println("toName = " + toName);
+        System.out.println("content = " + content);
+        return "xxx";
     }
 
 //           自己写重定向，会导致错误，前台已经帮我们做了跳转

@@ -3,6 +3,13 @@ var oPopupUpload = new PopupUpload({
     
 });
  */
+function getContextPath() {
+    var contextPath = document.location.pathname;
+    var index =contextPath.substr(1).indexOf("/");
+    contextPath = contextPath.substr(0,index+1);
+    delete index;
+    return contextPath;
+}
 (function (window) {
     var PopupUpload = Base.createClass('main.component.PopupUpload');
     var Popup = Base.getClass('main.component.Popup');
@@ -74,7 +81,7 @@ var oPopupUpload = new PopupUpload({
                 }
                 that.requesting = true;
                 $.ajax({
-                    url: '/user/addNews/',
+                    url: 'user/addNews/',
                     method: 'post',
                     data: {image: that.image, title: sTitle, link: sLink},
                     dataType: 'json'

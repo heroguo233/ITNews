@@ -16,5 +16,6 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
 server:
   servlet:
+#    context-path: /itnews
     context-path: /
   port: 80
