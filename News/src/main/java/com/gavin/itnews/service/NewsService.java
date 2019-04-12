@@ -14,8 +14,13 @@ public interface NewsService {
 
     News showNewsByIndex(String index);
 
-    ArrayList<ViewObject> showNews();
+    ArrayList<ViewObject> showNews(Integer loginId);
 
 
     boolean addNews(News news, User user);
+
+    boolean likeNews(String userId, String newsId);
+
+    boolean dislikeNews(String userId, String newsId);
+
 }

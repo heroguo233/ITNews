@@ -12,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,21 +47,39 @@ public class NewsController {
         model.addAttribute("comments", commentsVos);
         return "detail";
     }
-
-
-    private List<ViewObject> getCommentsVo(String index) {
-        List<ViewObject> commentsVo = new ArrayList<>();
-        List<Comment> comments = commentService.findCommentsByNewsId(index);
-        for (Comment comment : comments) {
-            ViewObject vo = new ViewObject();
-            Integer userId = comment.getUserId();
-            User user = userService.findUserByUserId(userId);
-            vo.set("comment", comment);
-            vo.set("user", user);
-            commentsVo.add(vo);
-        }
-        return commentsVo;
+    @RequestMapping("like")
+    @ResponseBody
+    public HashMap<String,Object>likeNews(String newsId, HttpServletResponse response, HttpServletRequest request,Model model) throws IOException {
+        String contextPath = request.getContextPath();
+        HashMap<String, Object> map = new HashMap<>();
+        User user = (User) request.getSession().getAttribute("user");
+        Integer userId = user.getId();
+       boolean flag= newsService.likeNews(userId+"",newsId);
+       if (flag){
+           map.put("code",0);
+//           map.put("msg","点赞操作成功");
+           model.addAttribute("likeCount",1);
+       }
+//       response.sendRedirect(contextPath+"/home");
+       return map;
     }
+    @RequestMapping("dislike")
+    @ResponseBody
+    public HashMap<String,Object>dislikeNews(String newsId, HttpServletResponse response, HttpServletRequest request,Model model) throws IOException {
+        String contextPath = request.getContextPath();
+        HashMap<String, Object> map = new HashMap<>();
+        User user = (User) request.getSession().getAttribute("user");
+        Integer userId = user.getId();
+       boolean flag= newsService.dislikeNews(userId+"",newsId);
+       if (flag){
+           map.put("code",0);
+//           map.put("msg","点踩操作成功");
+           model.addAttribute("likeCount",-1);
+       }
+//        response.sendRedirect(contextPath+"/home");
+       return map;
+    }
+
 
 
 }
