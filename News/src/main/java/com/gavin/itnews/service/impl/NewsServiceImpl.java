@@ -81,25 +81,31 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public boolean likeNews(String userId, String newsId) {
+    public int likeNews(String userId, String newsId) {
         Jedis jedis = JedisUtils.getJedisFromPool();
         String likeNewsName = "like_news"+newsId;
         String dislikeNewsName = "dislike_news"+newsId;
-        Long sadd = jedis.sadd(likeNewsName, userId);
+        jedis.sadd(likeNewsName, userId);
         jedis.srem(dislikeNewsName,userId);
+        Long likeNum = jedis.scard(likeNewsName);
+        Long dislikeNum = jedis.scard(dislikeNewsName);
+        int num = (int) (likeNum-dislikeNum);
         jedis.close();
-        return sadd>=1;
+        return num;
     }
 
     @Override
-    public boolean dislikeNews(String userId, String newsId) {
+    public int dislikeNews(String userId, String newsId) {
         Jedis jedis = JedisUtils.getJedisFromPool();
         String likeNewsName = "like_news"+newsId;
         String dislikeNewsName = "dislike_news"+newsId;
-        Long sadd = jedis.sadd(dislikeNewsName, userId);
+        jedis.sadd(dislikeNewsName, userId);
         jedis.srem(likeNewsName,userId);
+        Long likeNum = jedis.scard(likeNewsName);
+        Long dislikeNum = jedis.scard(dislikeNewsName);
+        int num = (int) (likeNum-dislikeNum);
         jedis.close();
-        return sadd>=1;
+        return num;
     }
 
 }

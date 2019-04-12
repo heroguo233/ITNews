@@ -19,8 +19,8 @@ public interface NewsService {
 
     boolean addNews(News news, User user);
 
-    boolean likeNews(String userId, String newsId);
+    int likeNews(String userId, String newsId);
 
-    boolean dislikeNews(String userId, String newsId);
+    int dislikeNews(String userId, String newsId);
 
 }

@@ -47,39 +47,36 @@ public class NewsController {
         model.addAttribute("comments", commentsVos);
         return "detail";
     }
+
     @RequestMapping("like")
     @ResponseBody
-    public HashMap<String,Object>likeNews(String newsId, HttpServletResponse response, HttpServletRequest request,Model model) throws IOException {
+    public HashMap<String, Object> likeNews(String newsId, HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
         String contextPath = request.getContextPath();
         HashMap<String, Object> map = new HashMap<>();
         User user = (User) request.getSession().getAttribute("user");
         Integer userId = user.getId();
-       boolean flag= newsService.likeNews(userId+"",newsId);
-       if (flag){
-           map.put("code",0);
-//           map.put("msg","点赞操作成功");
-           model.addAttribute("likeCount",1);
-       }
-//       response.sendRedirect(contextPath+"/home");
-       return map;
-    }
-    @RequestMapping("dislike")
-    @ResponseBody
-    public HashMap<String,Object>dislikeNews(String newsId, HttpServletResponse response, HttpServletRequest request,Model model) throws IOException {
-        String contextPath = request.getContextPath();
-        HashMap<String, Object> map = new HashMap<>();
-        User user = (User) request.getSession().getAttribute("user");
-        Integer userId = user.getId();
-       boolean flag= newsService.dislikeNews(userId+"",newsId);
-       if (flag){
-           map.put("code",0);
-//           map.put("msg","点踩操作成功");
-           model.addAttribute("likeCount",-1);
-       }
-//        response.sendRedirect(contextPath+"/home");
-       return map;
+        int num = newsService.likeNews(userId + "", newsId);
+
+        map.put("code", 0);
+        map.put("msg", num + "");
+
+        return map;
     }
 
+    @RequestMapping("dislike")
+    @ResponseBody
+    public HashMap<String, Object> dislikeNews(String newsId, HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
+        String contextPath = request.getContextPath();
+        HashMap<String, Object> map = new HashMap<>();
+        User user = (User) request.getSession().getAttribute("user");
+        Integer userId = user.getId();
+        int num = newsService.dislikeNews(userId + "", newsId);
+
+        map.put("code", 0);
+        map.put("msg", num + "");
+
+        return map;
+    }
 
 
 }
