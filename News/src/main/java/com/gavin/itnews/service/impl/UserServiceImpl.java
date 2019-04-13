@@ -3,8 +3,11 @@ package com.gavin.itnews.service.impl;
 import com.gavin.itnews.domain.User;
 import com.gavin.itnews.mapper.UserMapper;
 import com.gavin.itnews.service.UserService;
+import com.gavin.itnews.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 /**
  * Created by Gavin
@@ -25,8 +28,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int login(String username, String password) {
-        boolean flag = userMapper.usernameIsExist(username)==1;
-        if(flag){
+        User userSalt = userMapper.selectUserByUsername(username);
+        if(userSalt!=null){
+            String salt = userSalt.getSalt();
+            password = MD5Utils.getMD5(password,salt);
             User user = userMapper.findUserByUsernameAndPassword(username, password);
             if(user!=null){
                 return 0;
@@ -49,11 +54,14 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int register(String username, String password) {
-        boolean flag = userMapper.usernameIsExist(username)==1;
-        if(flag){
+        User user = userMapper.usernameIsExist(username);
+        if(user!=null){
             return 1;
         }else {
-            userMapper.insertUser(username,password);
+            String salt = MD5Utils.getSalt();
+            String MD5Password = MD5Utils.getMD5(password, salt);
+            String head = String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
+            userMapper.insertUser(username,MD5Password,salt,head);
             return 0;
         }
     }

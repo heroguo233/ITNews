@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.View;
 import java.util.ArrayList;
@@ -25,17 +26,18 @@ public class MainController {
     @Autowired
     NewsService newsService;
     @RequestMapping("home")
-    public String home(Model model, HttpSession httpSession, @RequestParam(value = "pop",defaultValue = "0")int pop){
+    public String home(Model model, HttpServletRequest request, HttpSession httpSession, @RequestParam(value = "pop",defaultValue = "0")int pop){
         Integer loginId = 0;
         User user = (User) httpSession.getAttribute("user");
+        String requestURI = request.getRequestURI();
         if(user!=null){
             loginId =  user.getId();
+            model.addAttribute("pop",1);
+        }else {
+            model.addAttribute("pop",0);
         }
         List<ViewObject> vos = newsService.showNews(loginId);
         model.addAttribute("vos",vos);
-        if(pop==1){
-            model.addAttribute("pop",1);
-        }
         return "home";
     }
 

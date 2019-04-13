@@ -19,13 +19,13 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String contextPath = request.getContextPath();
         User user = (User) request.getSession().getAttribute("user");
+        String requestURI = request.getRequestURI(); // /news/13
         if(user!=null){
             return true;
         }else {
 //            request.getRequestDispatcher("/home?pop=1").forward(request,response);
-            response.sendRedirect(contextPath+"/home?pop=1");
+            response.sendRedirect(contextPath+"/home?pop=0");
             return false;
-
         }
 
     }
