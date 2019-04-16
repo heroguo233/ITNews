@@ -13,4 +13,6 @@ public interface UserService {
 
 
     User findUserByUsername(String username);
+
+    int sendMessage(String toName, String content, User fromUser);
 }

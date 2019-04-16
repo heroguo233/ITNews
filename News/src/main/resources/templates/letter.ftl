@@ -12,7 +12,7 @@
                             删除
                             </a>
                             <a href="${springMacroRequestContext.contextPath}/msg/detail?conversationId=${conversation.conversation.conversationId!}">
-                                共${conversation.conversation.id!}条会话
+                                共${conversation.count!}条会话
                             </a>
                         </div>
                     </div>

@@ -106,22 +106,35 @@ public class UserController {
         }
         return map;
     }
-
-    @RequestMapping("/user/{userId}")
-    public String userDetail(@PathVariable String userId,Model model){
-        User user = userService.findUserByUserId(Integer.valueOf(userId));
-        model.addAttribute("user",user);
-        return "personal";
-    }
     @RequestMapping("/user/tosendmsg")
     public String toSendMsgPage(){
         return "sendmsg";
     }
+    @RequestMapping(value = "/user/{userId}")
+    public String userDetail(@PathVariable String userId,Model model){
+        User user = userService.findUserByUserId(Integer.valueOf(userId));
+        model.addAttribute("personal",user);
+        return "personal";
+    }
+
+//    {"code":555} 一直在递增
+//    {"msg":"收信人不存在！","code":1}
+//
     @RequestMapping("/user/msg/addMessage")
-    public String addMessage(String toName,String content){
-        System.out.println("toName = " + toName);
-        System.out.println("content = " + content);
-        return "xxx";
+    @ResponseBody
+    public HashMap<String,Object> addMessage(String toName,String content,HttpSession session){
+        User fromUser = (User) session.getAttribute("user");
+        HashMap<String, Object> map = new HashMap<>();
+//        System.out.println("toName = " + toName);
+//        System.out.println("content = " + content);
+        int flag=userService.sendMessage(toName,content,fromUser);
+        if(flag ==1){
+            map.put("msg","收信人不存在！");
+            map.put("code",1);
+        }else {
+            map.put("code",200);
+        }
+        return map;
     }
 
 //           自己写重定向，会导致错误，前台已经帮我们做了跳转

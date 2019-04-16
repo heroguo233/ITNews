@@ -3,6 +3,9 @@ package com.gavin.itnews.service.impl;
 import com.gavin.itnews.domain.News;
 import com.gavin.itnews.domain.User;
 import com.gavin.itnews.domain.ViewObject;
+import com.gavin.itnews.event.Event;
+import com.gavin.itnews.event.EventProducer;
+import com.gavin.itnews.event.EventType;
 import com.gavin.itnews.mapper.NewsMapper;
 import com.gavin.itnews.mapper.UserMapper;
 import com.gavin.itnews.service.NewsService;
@@ -13,6 +16,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,12 +52,18 @@ public class NewsServiceImpl implements NewsService {
             ViewObject viewObject = new ViewObject();
             Integer userId = news.getUserId();
             User user = userMapper.selectUserByUserId(userId);
-            // 判断当前新闻的点赞数
+            viewObject.set("news", news);
+            viewObject.set("user", user);
+/*
+            已经更新了数据库，故不需要在这里拿redis数据了
+           // 判断当前新闻的点赞数
             Long likeNum = jedis.scard(likeNewsName);
             Long dislikeNum = jedis.scard(dislikeNewsName);
             news.setLikeCount((int) (likeNum-dislikeNum));
             viewObject.set("news", news);
-            viewObject.set("user", user);
+            viewObject.set("user", user);*/
+
+
 //            下面代码是判断用户是否点赞、点踩该新闻
             //先让likeCount等于0
             viewObject.set("likeCount",0);
@@ -82,6 +92,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public int likeNews(String userId, String newsId) {
+        // 更新redis
         Jedis jedis = JedisUtils.getJedisFromPool();
         String likeNewsName = "like_news"+newsId;
         String dislikeNewsName = "dislike_news"+newsId;
@@ -91,6 +102,9 @@ public class NewsServiceImpl implements NewsService {
         Long dislikeNum = jedis.scard(dislikeNewsName);
         int num = (int) (likeNum-dislikeNum);
         jedis.close();
+        // 0 是新闻点赞操作 1是评论 2 是点踩 3 是发私信
+        // 点赞 targetId 管理员 然后以管理员身份发送消息
+        EventProducer.fireEvent(EventType.LIKE,Integer.valueOf(userId),-1,Integer.valueOf(newsId),0,null);
         return num;
     }
 
@@ -105,6 +119,7 @@ public class NewsServiceImpl implements NewsService {
         Long dislikeNum = jedis.scard(dislikeNewsName);
         int num = (int) (likeNum-dislikeNum);
         jedis.close();
+        EventProducer.fireEvent(EventType.DISLIKE,Integer.valueOf(userId),-1,Integer.valueOf(newsId),-1,null);
         return num;
     }
 

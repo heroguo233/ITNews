@@ -1,12 +1,18 @@
 package com.gavin.itnews.service.impl;
 
+import com.gavin.itnews.domain.Message;
 import com.gavin.itnews.domain.User;
+import com.gavin.itnews.event.EventProducer;
+import com.gavin.itnews.event.EventType;
+import com.gavin.itnews.mapper.MessageMapper;
 import com.gavin.itnews.mapper.UserMapper;
 import com.gavin.itnews.service.UserService;
 import com.gavin.itnews.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -17,6 +23,8 @@ import java.util.Random;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    MessageMapper messageMapper;
 
     /**
      *
@@ -76,6 +84,27 @@ public class UserServiceImpl implements UserService {
     public User findUserByUsername(String username) {
         User user = userMapper.selectUserByUsername(username);
         return user;
+    }
+
+    /**
+     * 1:用户不存在
+     * @param toName
+     * @param content
+     * @param fromUser
+     * @return
+     */
+    @Override
+    public int sendMessage(String toName, String content, User fromUser) {
+        User toUser = userMapper.selectUserByUsername(toName);
+        if(toUser == null){
+            return 1;
+        }else {
+            HashMap<String, Object> contentMap = new HashMap<>();
+            contentMap.put("content",content);
+            //发私信 代码是 2
+            EventProducer.fireEvent(EventType.PERSONAL_MESSAGE,fromUser.getId(),toUser.getId(),-1,2,contentMap);
+            return 200;
+        }
     }
 
 }

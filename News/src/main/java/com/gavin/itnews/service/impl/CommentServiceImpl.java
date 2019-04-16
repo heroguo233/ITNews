@@ -3,6 +3,8 @@ package com.gavin.itnews.service.impl;
 import com.gavin.itnews.domain.Comment;
 import com.gavin.itnews.domain.User;
 import com.gavin.itnews.domain.ViewObject;
+import com.gavin.itnews.event.EventProducer;
+import com.gavin.itnews.event.EventType;
 import com.gavin.itnews.mapper.CommentMapper;
 import com.gavin.itnews.mapper.NewsMapper;
 import com.gavin.itnews.mapper.UserMapper;
@@ -46,6 +48,11 @@ public class CommentServiceImpl implements CommentService {
         Integer newsId = comment.getNewsId();
         int x = commentMapper.insertComment(comment);
         int y = newsMapper.increaseCommentCountByNewsId(newsId);
+        if(x==1&&y==1){
+            // 谁的新闻 通知谁？ 这个让异步去查好了
+            EventProducer.fireEvent(EventType.COMMENT,comment.getUserId(),-1,comment.getNewsId(),1,null);
+        }
+
         return x==1&&y==1;
     }
 

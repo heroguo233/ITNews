@@ -17,6 +17,18 @@ public class Message {
 
     private String content;
 
+    public Message(Integer fromId, Integer toId, Date createdDate, Integer hasRead, String conversationId, String content) {
+        this.fromId = fromId;
+        this.toId = toId;
+        this.createdDate = createdDate;
+        this.hasRead = hasRead;
+        this.conversationId = conversationId;
+        this.content = content;
+    }
+
+    public Message() {
+    }
+
     public Integer getId() {
         return id;
     }
