@@ -9,17 +9,6 @@ import org.apache.ibatis.annotations.*;
  */
 @Mapper
 public interface UserMapper {
-    /*
-    private Integer id;
-
-    private String name;
-
-    private String password;
-
-    private String salt;
-
-    private String headUrl;
-     */
 
     // 这种方式判断是否为空，查询到了返回true  但是查询不到有异常
     @Select("select count(1) from user where name = #{name} limit 1")

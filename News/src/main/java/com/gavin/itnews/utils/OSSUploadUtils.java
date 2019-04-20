@@ -28,7 +28,7 @@ public class OSSUploadUtils {
         int index = endpoint.indexOf("//");
         String substring = endpoint.substring(index+2);
 //        https://it-news.tp://oss-cn-beijing.aliyuncs.com/d7f1aee27912480287bbc45f11ddee8c娃哈哈.jpg
-//        图片处理一下
+//        图片处理一下 以height = 80px  width = 100px 的像素格式回显
          String process = "?x-oss-process=image/resize,m_fixed,h_80,w_100";
         return "https://"+bucketName+"."+substring+"/"+fileName+process;
     }

@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int register(String username, String password) {
-        User user = userMapper.usernameIsExist(username);
+        User user = userMapper.selectUserByUsername(username);
         if(user!=null){
             return 1;
         }else {

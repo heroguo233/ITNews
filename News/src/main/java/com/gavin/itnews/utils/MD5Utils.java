@@ -58,6 +58,7 @@ public class MD5Utils {
         //返回一个MD5 hash值
         return md5hashvalue;
     }
+    //获取盐值，取当前UUID的前六位
     public static String getSalt(){
         String salt = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 6);
         return salt;

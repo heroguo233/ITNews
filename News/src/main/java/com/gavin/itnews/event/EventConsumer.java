@@ -66,7 +66,7 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
      * 异步操作
      */
     private void asyncOperation(){
-        Jedis jedis = JedisUtils.getJedisFromPool();
+
         new Thread(){
             @Override
             public void run() {
@@ -75,8 +75,9 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                     // 这是由于brpop的API导致的返回一个list  第一个是String,并不在意
                     // b 不清楚是什么意思，但是使用之后会变成线程安全的操作
                     // r代表的 reverse    reversePop  当 入栈 lpush 而 出栈 rpop 数据结构就变成了队列
+                    Jedis jedis = JedisUtils.getJedisFromPool();
                     List<String> msgQueue = jedis.brpop(60*60, "msgQueue");
-
+                    jedis.close();
                     String eventJson = msgQueue.get(1);
                     Event event = JSONObject.parseObject(eventJson, Event.class);
                     EventType eventType = event.getEventType();
@@ -88,6 +89,5 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                 }
             }
         }.start();
-//        jedis.close();
     }
 }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 //别人需要什么东西
 public class Event {
     //事件的类型
-    EventType eventType; //0 : 点赞  1 点踩，2 回复  等
+    EventType eventType; //0 : 点赞  1 点踩，2 回复
 
     //事件是谁触发  谁点赞
     int actorId;

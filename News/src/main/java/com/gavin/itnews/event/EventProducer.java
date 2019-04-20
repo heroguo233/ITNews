@@ -29,5 +29,6 @@ public class EventProducer {
         String eventJson = JSONObject.toJSONString(event);
 
         jedis.lpush("msgQueue",eventJson);
+        jedis.close();
     }
 }
