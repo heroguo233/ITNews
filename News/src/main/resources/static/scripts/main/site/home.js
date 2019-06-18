@@ -34,26 +34,6 @@
                 }
             });
     }
-    /*function fClickSendMgs() {
-        var that = this;
-         alert('login');
-         PopuoSendMsg.show({
-            listeners: {
-                done: function () {
-                    //alert('login');
-                    window.location.reload();
-                }
-            }
-        });
-    }*/
-   /* function fClickMsg() {
-        var that = this;
-        PopupMsg.show({
-            ok: function () {
-                window.location.replace("/msg/list");
-            }
-        });
-    }*/
 
 
     function fClickLogin() {

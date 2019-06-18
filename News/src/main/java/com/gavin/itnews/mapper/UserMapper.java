@@ -14,14 +14,18 @@ public interface UserMapper {
     @Select("select count(1) from user where name = #{name} limit 1")
     @ResultType(User.class)
     User usernameIsExist(@Param("name") String username);
+
     @Select("select id,name,password,salt,head_url as headUrl from user where name = #{name}")
     @ResultType(User.class)
     User selectUserByUsername(@Param("name") String username);
+
     @Select("select id,name,password,salt,head_url as headUrl from user where name = #{name} and password = #{password}")
     @ResultType(User.class)
     User findUserByUsernameAndPassword(@Param("name") String username, @Param("password") String password);
+
     @Insert("insert user (name,password,salt,head_url) values (#{name},#{password},#{salt},#{headUrl})")
     void insertUser(@Param("name") String username, @Param("password") String password, @Param("salt") String salt, @Param("headUrl") String head);
+
     @Select("select id,name,password,salt,head_url as headUrl from user where id = #{userId}")
     @ResultType(User.class)
     User selectUserByUserId(@Param("userId") Integer userId);

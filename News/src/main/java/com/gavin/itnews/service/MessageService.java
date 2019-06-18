@@ -1,6 +1,5 @@
 package com.gavin.itnews.service;
 
-import com.gavin.itnews.domain.Message;
 import com.gavin.itnews.domain.ViewObject;
 
 import java.util.List;
@@ -14,4 +13,7 @@ public interface MessageService {
 
    List<ViewObject> findMessagesByConversationId(String conversationId);
 
+   void deleteOneMsg(int messageId);
+
+   void deleteMessages(String conversationId);
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,6 +33,8 @@ public class DislikeHandler implements  EventHandler {
     public void handleEvent(Event event) {
         int newsId = event.getItemID();
         // 1. 自减新闻赞数
-        newsMapper.decreaseLikeCountCountByNewsId(newsId);
+        HashMap<String, Object> extData = event.getExtData();
+        int num = (int) extData.get("num");
+        newsMapper.updateLikeCountByNewsId(newsId,num);
     }
 }

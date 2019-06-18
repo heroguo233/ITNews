@@ -25,4 +25,10 @@ public interface MessageMapper {
     @Select("select id,from_id as fromId,to_id as toId, content,created_date as createdDate, has_read as hasRead,conversation_id as conversationId from message where conversation_id = #{conversationId} ")
     @ResultType(List.class)
     List<Message> selectMessagesByConversationId(@Param("conversationId") String conversationId);
+
+    @Delete("delete from message where id = #{messageId}")
+    void deleteOneMessageByMessageId(@Param("messageId") int messageId);
+
+    @Delete("delete from message where conversation_id=#{conversationId}")
+    void deleteMessagesByConversationId(@Param("conversationId")String conversationId);
 }

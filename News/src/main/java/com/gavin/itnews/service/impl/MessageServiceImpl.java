@@ -1,6 +1,7 @@
 package com.gavin.itnews.service.impl;
 
 import com.gavin.itnews.domain.Message;
+import com.gavin.itnews.domain.News;
 import com.gavin.itnews.domain.User;
 import com.gavin.itnews.domain.ViewObject;
 import com.gavin.itnews.mapper.MessageMapper;
@@ -55,6 +56,7 @@ public class MessageServiceImpl implements MessageService {
             Integer fromId = message.getFromId();
             User user = userMapper.selectUserByUserId(fromId);
             viewObject.set("user", user);
+            viewObject.set("conversationId",entry.getKey());
             conversations.add(viewObject);
         }
 
@@ -69,14 +71,28 @@ public class MessageServiceImpl implements MessageService {
         for (Message message : messagesList) {
             ViewObject viewObject = new ViewObject();
             Integer fromId = message.getFromId();
+            Integer messageId = message.getId();
             User user = userMapper.selectUserByUserId(fromId);
             viewObject.set("userId", user.getId());
             viewObject.set("headUrl", user.getHeadUrl());
             viewObject.set("message", message);
+            viewObject.set("messageId",messageId);
+            //把ConversationId带回去 删除操作的时候有用
+            viewObject.set("conversationId",conversationId);
             messages.add(viewObject);
         }
 
 
         return messages;
+    }
+
+    @Override
+    public void deleteOneMsg(int messageId) {
+        messageMapper.deleteOneMessageByMessageId(messageId);
+    }
+
+    @Override
+    public void deleteMessages(String conversationId) {
+        messageMapper.deleteMessagesByConversationId(conversationId);
     }
 }

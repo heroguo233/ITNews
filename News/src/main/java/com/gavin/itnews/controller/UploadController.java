@@ -15,10 +15,14 @@ import java.util.HashMap;
  */
 @RestController
 public class UploadController {
+
+
     final String endpoint ="http://oss-cn-beijing.aliyuncs.com";
     final String accessKeyId = "LTAIUNOPybiWBx8C";
     final String accessKeySecret = "Q75V2Jyu3d3HZbIkK7MaMWQ5bkxiSt";
-    @RequestMapping("uploadImage")
+
+
+    @RequestMapping("/uploadImage")
     public HashMap<String,Object> uploadImage(MultipartFile file){
         OSSUploadUtils.initOOSClient(endpoint,accessKeyId,accessKeySecret);
         HashMap<String, Object> map = new HashMap<>();

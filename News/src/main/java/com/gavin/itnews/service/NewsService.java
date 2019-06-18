@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public interface NewsService {
 
-    News showNewsByIndex(String index);
+    News showNewsByIndex(String index,Integer loginId);
 
     ArrayList<ViewObject> showNews(Integer loginId);
 

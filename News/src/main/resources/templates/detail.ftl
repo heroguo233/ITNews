@@ -4,12 +4,12 @@
         <div class="post detail">
 
             <div class="votebar">
-                <#if news.likeCount gt 0>
+                <#if news.extData gt 0>
                 <button class="click-like up pressed" data-id="${news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">${news.likeCount!}</span></button>
                 <#else>
                 <button class="click-like up" data-id="${news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">${news.likeCount!}</span></button>
                 </#if>
-                <#if news.likeCount < 0>
+                <#if news.extData < 0>
                 <button class="click-dislike down pressed" data-id="${news.id}" title="反对"><i class="vote-arrow"></i></button>
                 <#else>
                 <button class="click-dislike down" data-id="${news.id}" title="反对"><i class="vote-arrow"></i></button>
@@ -36,16 +36,6 @@
                 <div class="user-avatar">
                     <a href="${springMacroRequestContext.contextPath}/user/${owner.id!}"><img width="32" class="img-circle" src="${owner.headUrl!}"></a>
                 </div>
-                <!--
-                <div class="info">
-                    <h5>分享者</h5>
-
-                    <a href="http://nowcoder.com/u/125701"><img width="48" class="img-circle" src="http://images.nowcoder.com/images/20141231/622873_1420036789276_622873_1420036771761_%E8%98%91%E8%8F%87.jpg@0e_200w_200h_0c_1i_1o_90Q_1x" alt="Thumb"></a>
-
-                    <h4 class="m-b-xs">影浅</h4>
-                    <a class="btn btn-default btn-xs" href="http://nowcoder.com/signin"><i class="fa icon-eye"></i> 关注TA</a>
-                </div>
-                -->
             </div>
 
             <div class="subject-name">来自 <a href="${springMacroRequestContext.contextPath}/user/${owner.id}">${owner.name!}</a></div>
@@ -119,15 +109,6 @@
                 });
               });
 
-              // $(window).on('touchmove scroll', function() {
-              //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-              //     $('div.backdrop').show();
-              //     $('div.share-help').show();
-              //   } else {
-              //     $('div.backdrop').hide();
-              //     $('div.share-help').hide();
-              //   }
-              // });
 
             });
 

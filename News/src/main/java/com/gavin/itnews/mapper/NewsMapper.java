@@ -27,9 +27,7 @@ public interface NewsMapper {
     @ResultType(News.class)
     News selectNewsById(@Param("newsId") String newsId);
 
-    @Update("update news set like_count = like_count + 1 where id = #{newsId}")
-    void increaseLikeCountCountByNewsId(@Param("newsId") int newsId);
 
-    @Update("update news set like_count = like_count - 1 where id = #{newsId}")
-    void decreaseLikeCountCountByNewsId(@Param("newsId") int newsId);
+    @Update("update news set like_count = #{num} where id = #{newsId}")
+    void updateLikeCountByNewsId(@Param("newsId")int newsId, @Param("num")int num);
 }

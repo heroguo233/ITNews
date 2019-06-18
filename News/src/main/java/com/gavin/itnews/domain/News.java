@@ -3,6 +3,7 @@ package com.gavin.itnews.domain;
 import java.util.Date;
 
 public class News {
+
     private Integer id;
 
     private String title;
@@ -18,6 +19,18 @@ public class News {
     private Date createdDate;
 
     private Integer userId;
+
+    private Integer score;
+
+    private Integer extData = 0;
+
+    public Integer getExtData() {
+        return extData;
+    }
+
+    public void setExtData(Integer extData) {
+        this.extData = extData;
+    }
 
     public News() {
     }
@@ -97,6 +110,15 @@ public class News {
         this.userId = userId;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+
     @Override
     public String toString() {
         return "News{" +
@@ -109,5 +131,15 @@ public class News {
                 ", createdDate=" + createdDate +
                 ", userId=" + userId +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

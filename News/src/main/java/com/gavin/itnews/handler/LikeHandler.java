@@ -38,7 +38,9 @@ public class LikeHandler implements  EventHandler {
     public void handleEvent(Event event) {
         int newsId = event.getItemID();
         // 1. 自增新闻赞数
-        newsMapper.increaseLikeCountCountByNewsId(newsId);
+        HashMap<String, Object> extData = event.getExtData();
+        int num = (int) extData.get("num");
+        newsMapper.updateLikeCountByNewsId(newsId,num);
         // 2. 记录用户的操作 这个新闻被用户点赞过 这里可能要新建一个表，在本地不打算做了 就用redis来记录这个操作
 
     }

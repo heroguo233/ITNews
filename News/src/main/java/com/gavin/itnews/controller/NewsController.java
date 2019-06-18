@@ -1,6 +1,5 @@
 package com.gavin.itnews.controller;
 
-import com.gavin.itnews.domain.Comment;
 import com.gavin.itnews.domain.News;
 import com.gavin.itnews.domain.User;
 import com.gavin.itnews.domain.ViewObject;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,8 +34,10 @@ public class NewsController {
 
 
     @RequestMapping("/news/{index}")
-    public String detail(Model model, @PathVariable String index) {
-        News news = newsService.showNewsByIndex(index);
+    public String detail(Model model, @PathVariable String index,HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        Integer loginId = user.getId();
+        News news = newsService.showNewsByIndex(index,loginId);
         Integer userId = news.getUserId();
         User owner = userService.findUserByUserId(userId);
         List<ViewObject> commentsVos = commentService.getCommentsVo(index);

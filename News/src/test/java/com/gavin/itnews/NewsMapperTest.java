@@ -3,6 +3,7 @@ package com.gavin.itnews;
 import com.gavin.itnews.domain.News;
 import com.gavin.itnews.mapper.NewsMapper;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ItNewsApplication.class)
+@Ignore
 public class NewsMapperTest {
     @Autowired
     NewsMapper newsMapper;

@@ -8,7 +8,7 @@
                     <div class="letter-info">
                         <span class="l-time">${conversation.conversation.createdDate?string('yyyy-MM-dd HH:mm:ss')}</span>
                         <div class="l-operate-bar">
-                            <a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
+                            <a href="${springMacroRequestContext.contextPath}/msg/deleteMessages?conversationId=${conversation.conversationId}" class="sns-action-del" data-id="10005_622873">
                             删除
                             </a>
                             <a href="${springMacroRequestContext.contextPath}/msg/detail?conversationId=${conversation.conversation.conversationId!}">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="chat-headbox">
                         <span class="msg-num">
-                            ${conversation.unread!}
+                            ${conversation.count!}
                         </span>
                         <a class="list-head" href="${springMacroRequestContext.contextPath}/user/${conversation.user.id!}">
                             <img alt="头像" src="${conversation.user.headUrl!}">

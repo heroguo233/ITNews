@@ -15,6 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     LoginInterceptor loginInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/user/**")
@@ -22,4 +23,5 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/news/**")
                 .addPathPatterns("/addComment/**");
     }
+
 }

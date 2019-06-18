@@ -23,12 +23,16 @@ import java.util.List;
  */
 @Service
 public class CommentServiceImpl implements CommentService {
+
     @Autowired
     CommentMapper commentMapper;
+
     @Autowired
     NewsMapper newsMapper;
+
     @Autowired
     UserMapper userMapper;
+
     @Override
     public List<Comment> findCommentsByNewsId(String newsId) {
         ArrayList<Comment> comments = new ArrayList<>();

@@ -15,6 +15,6 @@ public interface EventHandler {
 
     // 当前事件处理器对事件处理函数（回调）
 
-    public void handleEvent(Event event);
+     void handleEvent(Event event);
 
 }

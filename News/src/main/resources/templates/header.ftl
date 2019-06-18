@@ -21,7 +21,7 @@
     <script type="text/javascript" src="${springMacroRequestContext.contextPath}/scripts/main/component/popupUpload.js"></script>
     <script type="text/javascript" src="${springMacroRequestContext.contextPath}/scripts/main/util/action.js"></script>
     <script type="text/javascript" src="${springMacroRequestContext.contextPath}/scripts/main/site/home.js"></script>
-    <script type="text/javascript" src="${springMacroRequestContext.contextPath}/scripts/main/component/popupSendMsg.js"></script>
+    <#--<script type="text/javascript" src="${springMacroRequestContext.contextPath}/scripts/main/component/popupSendMsg.js"></script>-->
 
 </head>
 <body class="welcome_index">

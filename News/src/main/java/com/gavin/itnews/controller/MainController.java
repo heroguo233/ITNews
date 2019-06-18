@@ -1,6 +1,4 @@
 package com.gavin.itnews.controller;
-
-import com.gavin.itnews.domain.News;
 import com.gavin.itnews.domain.User;
 import com.gavin.itnews.domain.ViewObject;
 import com.gavin.itnews.service.NewsService;
@@ -12,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.View;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +24,6 @@ public class MainController {
     public String home(Model model, HttpServletRequest request, HttpSession httpSession, @RequestParam(value = "pop",defaultValue = "0")int pop){
         Integer loginId = 0;
         User user = (User) httpSession.getAttribute("user");
-        String requestURI = request.getRequestURI();
         if(user!=null){
             loginId =  user.getId();
             model.addAttribute("pop",1);

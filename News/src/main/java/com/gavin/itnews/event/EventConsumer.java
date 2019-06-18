@@ -51,11 +51,12 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
 
             for (EventType eventType : eventTypeList) {
 
+                // 没有的时候就要创建
                 if(!registerTable.containsKey(eventType)){
                     ArrayList<EventHandler> eventHandlers = new ArrayList<>();
                     registerTable.put(eventType,eventHandlers);
                 }
-                // 如果没有创建的话 和50行是一个list 故后面的不需要再put了
+                // 无论有没有eventTYpe，都需要把事件加进去
                 List<EventHandler> eventHandlers = registerTable.get(eventType);
                 eventHandlers.add(eventHandler);
             }
@@ -73,10 +74,10 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                 while(true){
 
                     // 这是由于brpop的API导致的返回一个list  第一个是String,并不在意
-                    // b 不清楚是什么意思，但是使用之后会变成线程安全的操作
+                    // b
                     // r代表的 reverse    reversePop  当 入栈 lpush 而 出栈 rpop 数据结构就变成了队列
                     Jedis jedis = JedisUtils.getJedisFromPool();
-                    List<String> msgQueue = jedis.brpop(60*60, "msgQueue");
+                    List<String> msgQueue = jedis.brpop(0 ,"msgQueue");
                     jedis.close();
                     String eventJson = msgQueue.get(1);
                     Event event = JSONObject.parseObject(eventJson, Event.class);

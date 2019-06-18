@@ -34,4 +34,20 @@ public class MessageController {
         model.addAttribute("messages",messages);
         return "letterDetail";
     }
+    @RequestMapping("/msg/deleteOneMsg")
+    public String deleteOneMsg(Model model,String conversationId,int messageId){
+        messageService.deleteOneMsg(messageId);
+        List<ViewObject> messages=  messageService.findMessagesByConversationId(conversationId);
+        model.addAttribute("messages",messages);
+        return "letterDetail";
+    }
+    @RequestMapping("/msg/deleteMessages")
+    public String deleteMessages(Model model,HttpSession httpSession,String conversationId){
+        User user = (User) httpSession.getAttribute("user");
+        messageService.deleteMessages(conversationId);
+
+        List<ViewObject> conversations = messageService.findAllMessageByUserId(user.getId() + "");
+        model.addAttribute("conversations",conversations);
+        return "letter";
+    }
 }

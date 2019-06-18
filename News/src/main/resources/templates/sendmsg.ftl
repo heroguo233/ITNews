@@ -73,8 +73,8 @@
                 success:function(data){
                     //alert(data)
                     var dataobj =   data  ;
-                    alert(dataobj.code)
-                    alert(dataobj.msg)
+                    // alert(dataobj.code)
+                    // alert(dataobj.msg)
 
                     if (dataobj.code == '1') {
                         errtag.innerText=dataobj.msg
